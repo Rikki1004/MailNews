@@ -9,12 +9,13 @@ import retrofit2.http.Query
 
 
 interface ApiService {
-    @Headers("service-id: 25", "Content-Type: application/json")
+
     @GET("everything/")
     fun getArticles(
         @Query("page") page : Int = 1,
-        @Query("q") country :String = "ru",
+        @Query("q") q :String = "",
         @Query("language") language :String = "en",
-        @Query("apiKey") apiKey :String = "404e1463c8d64e1f8470ab2c43864cbd", //Yes, I know that everyone will see my api key
+        @Query("pageSize") pageSize :Int = 20,
+        @Query("apiKey") apiKey :String = "177d68cbb2cf4511a899016df23da9fd", //Yes, I know that everyone will see my api key
     ): Observable<ArticleResponse>
 }

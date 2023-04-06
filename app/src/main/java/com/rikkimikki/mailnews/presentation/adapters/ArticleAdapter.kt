@@ -8,36 +8,31 @@ import androidx.recyclerview.widget.RecyclerView
 import com.rikkimikki.mailnews.R
 import com.rikkimikki.mailnews.databinding.ArticleItemBinding
 import com.rikkimikki.mailnews.domain.pojo.Article
-import com.squareup.picasso.Picasso
+import com.rikkimikki.mailnews.utils.convertDate
 
 class ArticleAdapter: ListAdapter<Article, ArticleAdapter.ArticleViewHolder>(ArticleDiffCallback){
-
     var onArticleClickListener: OnArticleClickListener? = null
     var onReachEndListener: OnReachEndListener? = null
-
+    fun addArticles(articles: List<Article>){
+        val newList = currentList.toMutableList()
+        newList.addAll(articles)
+        submitList(newList)
+    }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArticleViewHolder {
         val view: View =
             LayoutInflater.from(parent.context).inflate(R.layout.article_item, parent, false)
         return ArticleViewHolder(view)
     }
-
     override fun onBindViewHolder(holder: ArticleViewHolder, position: Int) {
         val article = currentList[position]
         with(holder.viewBinding){
             title.text = article.title
-            author.text = article.author
             description.text = article.description
-            content.text = article.content
-            publishedAt.text = article.publishedAt
-            if (article.urlToImage != null && article.urlToImage.isNotBlank())
-                Picasso.get().load(article.urlToImage).into(image)
+            date.text = convertDate(article.publishedAt)
 
-            next.setOnClickListener {
-                onArticleClickListener?.onClick(article)
-            }
-            if (position > currentList.size - 4 && onReachEndListener != null) {
+            if (position > currentList.size - 2 && onReachEndListener != null) {
                 onReachEndListener?.onReachEnd()
-            }
+            } //automatic data upload
         }
     }
 

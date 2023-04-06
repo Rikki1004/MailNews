@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">MailNews</string>
     <string name="continue_read">Читать далее</string>
+    <string name="search_hint">Поиск по статьям</string>
+    <string name="article_click">Клик по статье</string>
+    <string name="page_end">достигнут конец страницы</string>
+    <string name="nofing">ничего не найдено</string>
 </resources>
