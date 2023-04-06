@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">MailNews</string>
+    <string name="continue_read">Читать далее</string>
 </resources>
