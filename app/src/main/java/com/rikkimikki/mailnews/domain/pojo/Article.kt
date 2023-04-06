@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName
 data class Article (
     @SerializedName("author")
     @Expose
-    val author: String,
+    val author: String?,
 
     @SerializedName("title")
     @Expose
@@ -18,7 +18,7 @@ data class Article (
 
     @SerializedName("urlToImage")
     @Expose
-    val urlToImage: String,
+    val urlToImage: String?,
 
     @SerializedName("publishedAt")
     @Expose
