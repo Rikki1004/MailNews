@@ -13,8 +13,12 @@ class MainViewModel : ViewModel() {
     private val disposable = CompositeDisposable()
     private val apiService = ApiFactory.getApiService()
 
+    val articles = MutableLiveData<List<Article>>()
+    val errors = MutableLiveData<String>()
+    private var page = 1
+
     fun getArticles() {
-        disposable.add(apiService.getArticles()
+        disposable.add(apiService.getArticles(page = page++)
             .subscribeOn(Schedulers.io())
             //.observeOn(AndroidSchedulers.mainThread())
             .subscribe({
@@ -25,6 +29,8 @@ class MainViewModel : ViewModel() {
             })
     }
 
-    val articles = MutableLiveData<List<Article>>()
-    val errors = MutableLiveData<String>()
+    override fun onCleared() {
+        super.onCleared()
+        disposable.dispose()
+    }
 }

@@ -13,6 +13,7 @@ import com.squareup.picasso.Picasso
 class ArticleAdapter: ListAdapter<Article, ArticleAdapter.ArticleViewHolder>(ArticleDiffCallback){
 
     var onArticleClickListener: OnArticleClickListener? = null
+    var onReachEndListener: OnReachEndListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArticleViewHolder {
         val view: View =
@@ -28,10 +29,14 @@ class ArticleAdapter: ListAdapter<Article, ArticleAdapter.ArticleViewHolder>(Art
             description.text = article.description
             content.text = article.content
             publishedAt.text = article.publishedAt
-            Picasso.get().load(article.urlToImage).into(image)
+            if (article.urlToImage != null && article.urlToImage.isNotBlank())
+                Picasso.get().load(article.urlToImage).into(image)
 
             next.setOnClickListener {
                 onArticleClickListener?.onClick(article)
+            }
+            if (position > currentList.size - 4 && onReachEndListener != null) {
+                onReachEndListener?.onReachEnd()
             }
         }
     }
@@ -43,5 +48,8 @@ class ArticleAdapter: ListAdapter<Article, ArticleAdapter.ArticleViewHolder>(Art
 
     interface OnArticleClickListener {
         fun onClick(article:Article)
+    }
+    interface OnReachEndListener {
+        fun onReachEnd()
     }
 }

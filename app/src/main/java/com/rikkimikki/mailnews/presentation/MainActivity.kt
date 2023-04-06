@@ -43,5 +43,10 @@ class MainActivity : AppCompatActivity() {
 
             }
         }
+        adapter.onReachEndListener = object : ArticleAdapter.OnReachEndListener{
+            override fun onReachEnd() {
+                viewModel.getArticles()
+            }
+        }
     }
 }
